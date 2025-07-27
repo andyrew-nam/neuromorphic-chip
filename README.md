@@ -1,1 +1,1 @@
-# neuromorphic-chip
+# Hardware Spiking Neural Network
