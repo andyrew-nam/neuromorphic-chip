@@ -131,27 +131,3 @@ module spiking_network (clk, n1, n2, n3, n7, n8);
   );
 
 endmodule
-
-
-
-
-
-  
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-      
