@@ -1,8 +1,5 @@
 `timescale 1ns/1ns
 
-// =====================
-// Single Neuron Module
-// =====================
 module spike_neuron_model (
   input wire clk,
   input wire [7:0] weighted_sum, // updated to handle total input sum
@@ -30,9 +27,6 @@ module spike_neuron_model (
   assign n_out = n_i_reg;
 endmodule
 
-// =====================
-// Spiking Neural Network (Fully Connected)
-// =====================
 module spiking_network #(parameter N_INPUTS=208, N_HIDDEN=40, N_OUTPUTS=4) (
   input wire clk,
   input wire [N_INPUTS-1:0] inputs,
