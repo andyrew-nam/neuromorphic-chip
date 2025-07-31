@@ -28,13 +28,13 @@ module testbench;
         // Hazard 0: Top-left, should affect cell (0,0)
         top[0]    = 11'd10;
         left[0]   = 11'd20;
-        bottom[0] = 11'd80;
-        right[0]  = 11'd150;
+        bottom[0] = 11'd200;
+        right[0]  = 11'd300;
 
         // Hazard 1: Bottom-right, should affect cells in row 3, columns 6-7
         top[1]    = 11'd300;
-        left[1]   = 11'd1100;
-        bottom[1] = 11'd370;
+        left[1]   = 11'd900;
+        bottom[1] = 11'd900;
         right[1]  = 11'd1230;
 
         // Fill remaining hazards with zeros
