@@ -12,11 +12,11 @@ module hazard_encoder (
     reg [5:0] cell_num;
 
     // Grid cell dimensions
-    localparam IMG_WIDTH  = 1240;
-    localparam IMG_HEIGHT = 375;
+    localparam IMG_WIDTH  = 26;
+    localparam IMG_HEIGHT = 8;
 
-    localparam CELL_WIDTH  = IMG_WIDTH / 8;   // 155 pixels
-    localparam CELL_HEIGHT = IMG_HEIGHT / 4;  // 93.75 pixels
+    localparam CELL_WIDTH  = IMG_WIDTH / 8;   
+    localparam CELL_HEIGHT = IMG_HEIGHT / 4;  
 
     integer row_top, row_bottom, col_left, col_right;
 
