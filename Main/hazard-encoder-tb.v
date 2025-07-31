@@ -28,16 +28,16 @@ module testbench;
         // Each cell is ~3 px wide × 2 px tall
         // So cols 0–1 → x = 0–5
         // rows 0–2 → y = 0–5
-        top[0]    = 5'd0;
-        left[0]   = 5'd0;
+        top[0]    = 5'd1;
+        left[0]   = 5'd1;
         bottom[0] = 5'd5;
         right[0]  = 5'd5;
 
         // Hazard 1: Covers rows 1–3, cols 5–7
         // cols 5–7 → x = 15–25
         // rows 1–3 → y = 2–7
-        top[1]    = 5'd2;
-        left[1]   = 5'd15;
+        top[1]    = 5'd3;
+        left[1]   = 5'd17;
         bottom[1] = 5'd7;
         right[1]  = 5'd25;
 
