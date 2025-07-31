@@ -2,10 +2,10 @@
 
 module testbench;
     reg [3:0] num_hazards;
-    reg [7:0] top    [0:15];
-    reg [7:0] left   [0:15];
-    reg [7:0] bottom [0:15];
-    reg [7:0] right  [0:15];
+    reg [10:0] top    [0:15];
+    reg [10:0] left   [0:15];
+    reg [10:0] bottom [0:15];
+    reg [10:0] right  [0:15];
     wire [15:0] vec1;
     wire [15:0] vec2;
 
@@ -22,31 +22,33 @@ module testbench;
     );
 
     initial begin
-        // Initialize all hazard inputs to zero
-        for (i = 0; i < 16; i = i + 1) begin
-            top[i]    = 8'd0;
-            left[i]   = 8'd0;
-            bottom[i] = 8'd0;
-            right[i]  = 8'd0;
-        end
-
-        // Test Case: 2 hazards
+        // Number of hazards
         num_hazards = 4'd2;
 
-        // Hazard 0: in top-left
-        top[0]    = 8'd0;
-        left[0]   = 8'd0;
-        bottom[0] = 8'd1;
-        right[0]  = 8'd2;
+        // Hazard 0: Top-left, should affect cell (0,0)
+        top[0]    = 11'd10;
+        left[0]   = 11'd20;
+        bottom[0] = 11'd80;
+        right[0]  = 11'd150;
 
-        // Hazard 1: in bottom-right
-        top[1]    = 8'd6;
-        left[1]   = 8'd20;
-        bottom[1] = 8'd7;
-        right[1]  = 8'd25;
+        // Hazard 1: Bottom-right, should affect cells in row 3, columns 6-7
+        top[1]    = 11'd300;
+        left[1]   = 11'd1100;
+        bottom[1] = 11'd370;
+        right[1]  = 11'd1230;
 
-        #10; // wait for combinational logic
+        // Fill remaining hazards with zeros
+        for (i = 2; i < 16; i = i + 1) begin
+            top[i]    = 11'd0;
+            left[i]   = 11'd0;
+            bottom[i] = 11'd0;
+            right[i]  = 11'd0;
+        end
 
+        // Wait for output to stabilize
+        #10;
+
+        // Display output vectors
         $display("vec1 = %b", vec1);
         $display("vec2 = %b", vec2);
 
