@@ -9,6 +9,8 @@ module hazard_encoder (
 );
 
     integer i, row, col;
+    integer row_top, row_bottom;
+    integer col_left, col_right;
     reg [4:0] cell_num;
 
     always @(*) begin
@@ -17,14 +19,10 @@ module hazard_encoder (
 
         for (i = 0; i < num_hazards; i = i + 1) begin
             for (row = 0; row < 4; row = row + 1) begin
-                for (col = 0; col < 8; col = col + 1) begin
-                    // Compute row bounds
-                    integer row_top = row * 2;
-                    integer row_bottom = row_top + 1;
+                row_top = row * 2;
+                row_bottom = row_top + 1;
 
-                    // Compute column bounds
-                    integer col_left;
-                    integer col_right;
+                for (col = 0; col < 8; col = col + 1) begin
                     if (col < 6) begin
                         col_left = col * 3;
                         col_right = col_left + 2;
@@ -33,7 +31,6 @@ module hazard_encoder (
                         col_right = col_left + 3;
                     end
 
-                    // Check if hazard overlaps this cell
                     if (!(bottom[i] < row_top || top[i] > row_bottom || 
                           right[i] < col_left || left[i] > col_right)) begin
                         cell_num = row * 8 + col;
