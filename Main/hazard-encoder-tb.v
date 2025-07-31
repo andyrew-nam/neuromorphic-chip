@@ -1,4 +1,3 @@
-
 `timescale 1ns / 1ns
 
 module testbench;
@@ -23,6 +22,14 @@ module testbench;
     );
 
     initial begin
+        // Initialize all hazard inputs to zero
+        for (i = 0; i < 16; i = i + 1) begin
+            top[i]    = 8'd0;
+            left[i]   = 8'd0;
+            bottom[i] = 8'd0;
+            right[i]  = 8'd0;
+        end
+
         // Test Case: 2 hazards
         num_hazards = 4'd2;
 
@@ -38,17 +45,11 @@ module testbench;
         bottom[1] = 8'd7;
         right[1]  = 8'd25;
 
-        // Fill rest with 0s
-        for (i = 2; i < 16; i = i + 1) begin
-            top[i]    = 8'd0;
-            left[i]   = 8'd0;
-            bottom[i] = 8'd0;
-            right[i]  = 8'd0;
-        end
+        #10; // wait for combinational logic
 
-        #10;
         $display("vec1 = %b", vec1);
         $display("vec2 = %b", vec2);
+
         $finish;
     end
 endmodule
