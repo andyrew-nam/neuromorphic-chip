@@ -1,9 +1,9 @@
 module hazard_encoder (
     input [3:0] num_hazards,
-    input [10:0] top    [0:15],    // up to 2047, enough for 375
-    input [10:0] left   [0:15],    // up to 2047, enough for 1240
-    input [10:0] bottom [0:15],
-    input [10:0] right  [0:15],
+    input [4:0] top    [0:15],    // up to 31, enough for 8
+    input [4:0] left   [0:15],    // up to 31, enough for 26
+    input [4:0] bottom [0:15],
+    input [4:0] right  [0:15],
     output reg [15:0] vec1,
     output reg [15:0] vec2
 );
@@ -15,8 +15,9 @@ module hazard_encoder (
     localparam IMG_WIDTH  = 26;
     localparam IMG_HEIGHT = 8;
 
-    localparam CELL_WIDTH  = IMG_WIDTH / 8;   
-    localparam CELL_HEIGHT = IMG_HEIGHT / 4;  
+    // Divide image into 4 rows × 8 columns = 32 cells
+    localparam CELL_WIDTH  = IMG_WIDTH / 8;    // = 3
+    localparam CELL_HEIGHT = IMG_HEIGHT / 4;   // = 2
 
     integer row_top, row_bottom, col_left, col_right;
 
