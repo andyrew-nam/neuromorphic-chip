@@ -26,16 +26,16 @@ module testbench;
         num_hazards = 4'd2;
 
         // Hazard 0: Top-left, should affect cell (0,0)
-        top[0]    = 11'd10;
-        left[0]   = 11'd20;
-        bottom[0] = 11'd200;
-        right[0]  = 11'd300;
+        top[0]    = 11'd1;
+        left[0]   = 11'd1;
+        bottom[0] = 11'd5;
+        right[0]  = 11'd2;
 
         // Hazard 1: Bottom-right, should affect cells in row 3, columns 6-7
-        top[1]    = 11'd100;
-        left[1]   = 11'd900;
-        bottom[1] = 11'd300;
-        right[1]  = 11'd1230;
+        top[1]    = 11'd20;
+        left[1]   = 11'd5;
+        bottom[1] = 11'd24;
+        right[1]  = 11'd8;
 
         // Fill remaining hazards with zeros
         for (i = 2; i < 16; i = i + 1) begin
