@@ -16,11 +16,10 @@ module hazard_encoder (
     localparam IMG_HEIGHT = 8;
 
     // Divide image into 4 rows × 8 columns = 32 cells
-    localparam CELL_WIDTH  = IMG_WIDTH / 8;    // = 3
-    localparam CELL_HEIGHT = IMG_HEIGHT / 4;   // = 2
+    localparam CELL_WIDTH  = IMG_WIDTH / 8;    
+    localparam CELL_HEIGHT = IMG_HEIGHT / 4;   
 
     integer row_top, row_bottom, col_left, col_right;
-
     always @(*) begin
         vec1 = 16'b0;
         vec2 = 16'b0;
