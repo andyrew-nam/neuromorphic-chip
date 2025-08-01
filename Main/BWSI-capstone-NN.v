@@ -19,7 +19,7 @@ module hazard_detector_nn (
     // 16 bits: [15] sign, [14:8] integer, [7:0] fraction
 
     // State machine states
-    typedef enum reg [2:0] {
+    typedef enum reg [3:0] {  // Changed to 4 bits to accommodate new state
         IDLE,
         LAYER1_NEURON,
         LAYER1_MAC,
@@ -30,6 +30,7 @@ module hazard_detector_nn (
         LAYER3_NEURON,
         LAYER3_MAC,
         LAYER3_SIGMOID,
+        COPY_OUTPUTS,  // New state for copying outputs
         DONE_STATE
     } state_t;
 
@@ -175,10 +176,16 @@ module hazard_detector_nn (
                 LAYER3_SIGMOID: begin
                     fc3_out[neuron_idx] <= sigmoid_approx(acc[23:8]); // use middle bits for Q8.8
                     if (neuron_idx == OUT_SIZE - 1) begin
-                        // Copy outputs to output port
-                        for (input_idx = 0; input_idx < OUT_SIZE; input_idx = input_idx + 1) begin
-                            outputs[input_idx] <= fc3_out[input_idx];
-                        end
+                        neuron_idx <= 0;  // Reset counter for copying outputs
+                        state <= COPY_OUTPUTS;
+                    end else
+                        neuron_idx <= neuron_idx + 1;
+                end
+
+                // New state to copy outputs sequentially
+                COPY_OUTPUTS: begin
+                    outputs[neuron_idx] <= fc3_out[neuron_idx];
+                    if (neuron_idx == OUT_SIZE - 1) begin
                         done <= 1;
                         state <= DONE_STATE;
                     end else
